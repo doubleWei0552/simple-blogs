@@ -1,0 +1,28 @@
+<div class="text-center">
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="dataTables_info">共<%= pageCount %>页数据</div>
+    </div>
+    <div class="col-sm-11">
+      <div class="btn-group">
+        <% if(pageIndex>1){ %>
+          <a href="<%= pageBaseUrl %>?page=<%= pageIndex-1 %>" class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></a>
+        <% }else{ %>
+          <a href="#" class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i></a>
+        <% } %>
+        <% pages.forEach(function(item){ %>
+          <% if(item==pageIndex){%>
+            <a href="#" class="btn btn-primary  active"><%= item %></a>
+          <%}else{%>
+            <a href="<%= pageBaseUrl %>?page=<%= item %>" class="btn btn-white"><%= item %></a>
+          <%} %>
+        <% }) %>
+        <% if(pageIndex<pageCount){ %>
+          <a href="<%= pageBaseUrl %>?page=<%= pageIndex+1 %>"  class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i></a>
+        <% }else{ %>
+          <a href="#"  class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../../layout/admin/header  %>
+    <title>资讯分类</title>
+  </head>
+  <body class="gray-bg">
+    <div class="container wrapper wrapper-content animated fadeInRight">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">资讯分类数据</h3>
+        </div>
+        <div class="panel-body">
+          <a class="btn btn-danger" href="/admin/news_type/add">新增</a>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>名字</th>
+                <th>描述</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% list.forEach(function(item,index){%>
+                <tr>
+                  <td><%= index+1 %></td>
+                  <td><%= item.name %></td>
+                  <td><%= item.description %></td>
+                  <td><a href="/admin/news_type/editor?id=<%= item.id %>"><i class="btn btn-primary btn-sm fa fa-edit"></i></a></td>
+                </tr>
+              <%}) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <% include ../../layout/admin/footer  %>
+  </body>
+</html>

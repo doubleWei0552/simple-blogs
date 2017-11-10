@@ -1,0 +1,37 @@
+<script src="/admin/js/jquery.min.js"></script>
+<script src="/admin/js/plugins/layer/layer.min.js"></script>
+<script src="/lib/jquery.validate.min.js"></script>
+<script src="/lib/localization/messages_zh.min.js"></script>
+<script src="/admin/js/ss.js"></script>
+<script>
+  jQuery.validator.setDefaults({
+    errorElement: "em",
+    errorPlacement: function (error, element) {
+      // Add the `help-block` class to the error element
+      error.addClass("help-block");
+      if (element.prop("type") === "checkbox") {
+        error.insertAfter(element.parent("label"));
+      } else {
+        error.insertAfter(element);
+      }
+    },
+    highlight: function (element, errorClass, validClass) {
+      // console.log(element)
+      // .parent()表示获取当前元素的父级
+      $(element).parent().addClass("has-error").removeClass("has-success");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).parent().addClass("has-success").removeClass("has-error");
+    },
+  })
+  // 验证手机号码
+  jQuery.validator.addMethod('isMobile',function(value,element){
+    var testMobile = /^1[3,5,7,8][0-9]\d{8}$/;
+    return this.optional(element) || testMobile.test(value);
+  },'请输入正确的手机号码');
+  // 验证QQ
+  jQuery.validator.addMethod('isQQ',function(value,element){
+    var testQQ = /^[1-9]\d{4,10}$/
+    return this.optional(element) || testQQ.test(value);
+  },'请输入正确的qq号')
+</script>

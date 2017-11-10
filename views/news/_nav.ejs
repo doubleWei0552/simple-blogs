@@ -1,0 +1,31 @@
+<nav>
+  <div class="nav-wrapper my-nav">
+    <a href="/" class="brand-logo">我的Blog联盟</a>
+  </div>
+</nav>
+<ul id="slide-out" class="side-nav">
+  <li><div class="user-view">
+      <div class="background">
+        <img src="/images/news_bg.jpg">
+      </div>
+      <a href="#!user"><img class="circle" src="/images/tx.jpg"></a>
+      <a href="#!name"><span class="white-text name">Arivin Lee</span></a>
+      <a href="#!email"><span class="white-text email">btc022003@gmail.com</span></a>
+    </div></li>
+    <li><a target="_blank" href="http://github.com/btc022003"><i class="fa fa-github">http://github.com/btc022003</i></a></li>
+    <li><a target="_blank" href="http://lixuanqi.com"><i class="fa fa-bookmark">http://lixuanqi.com</i></a></li>
+    <li><div class="divider"></div></li>
+    <li><a href="/" class="waves-effect">所有分类</a></li>
+    <% types.forEach(function(item){ %>
+      <li><a href="/?type=<%= item.id %>" class="waves-effect"><%= item.name %></a></li>
+    <% }) %>
+</ul>
+<div class="fixed-action-btn horizontal">
+  <a class="btn-floating btn-large red">
+    <i class="large fa fa-ellipsis-h"></i>
+  </a>
+  <ul id="navFixedContainer">
+    <li><a data-activates="slide-out" class="button-collapse btn-floating red"><i class="fa fa-navicon"></i></a></li>
+    <li><a href="#" class="btn-floating green"><i class="fa fa-arrow-up"></i></a></li>
+  </ul>
+</div>

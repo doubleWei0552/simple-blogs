@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./lib/webuploader/webuploader.css">
+  </head>
+
+  <body>
+    <div id="uploader-demo">
+      <!--用来存放item-->
+      <img src="" alt="" id="imgCtrl">
+      <div id="filePicker">选择图片</div>
+    </div>
+    <script src="./admin/js/jquery.min.js"></script>
+    <script src="./lib/webuploader/webuploader.js"></script>
+    <script>
+      // 初始化Web Uploader
+      var uploader = WebUploader.create({
+        // 选完文件后，是否自动上传。
+        auto: true,
+        // swf文件路径
+        swf: './lib/webuploader/Uploader.swf',
+        // 文件接收服务端。
+        server: '/common/file/uploadfile',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#filePicker',
+        // 只允许选择图片文件。
+        accept: {
+          title: 'Images',
+          extensions: 'gif,jpg,jpeg,bmp,png',
+          mimeTypes: 'image/*'
+        }
+      });
+      uploader.on( 'uploadSuccess', function( file,res ) {
+        // $( '#'+file.id ).addClass('upload-state-done');
+        console.log(file)
+        console.log(res)
+        $('#imgCtrl').attr('src',res.url)
+      });
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>simple-blog-管理后台</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css" rel="stylesheet">
+  </head>
+
+  <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">
+      <!--左侧导航开始-->
+      <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="nav-close"><i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+          <ul class="nav" id="side-menu">
+            <li class="nav-header">
+              <div class="dropdown profile-element">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                  <span class="clear">
+                    <span class="block m-t-xs" style="font-size:20px;">
+                      <i class="fa fa-book"></i>
+                      <strong class="font-bold">simple-blog</strong>
+                    </span>
+                  </span>
+                </a>
+              </div>
+              <div class="logo-element">simple-blog
+              </div>
+            </li>
+            <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+              <span class="ng-scope">管理后台</span>
+            </li>
+            <li>
+              <a class="J_menuItem" href="/admin/news">
+                <i class="fa fa-home"></i>
+                <span class="nav-label">主页</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-book"></i>
+                <span class="nav-label">博客部分</span>
+                <span class="fa arrow"></span>
+              </a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <a class="J_menuItem" href="/admin/news_type">博客文章分类</a>
+                  <a class="J_menuItem" href="/admin/news">博客列表</a>
+                </li>
+              </ul>
+            </li>
+            <li class="line dk"></li>
+          </ul>
+        </div>
+      </nav>
+      <!--左侧导航结束-->
+      <!--右侧部分开始-->
+      <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+          <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="#"><i class="fa fa-bars"></i> </a>
+              <!-- <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                <div class="form-group">
+                <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
+                </div>
+                </form> -->
+            </div>
+            <button type="button" class="pull-right minimalize-styl-2 btn btn-danger " onclick="logOut()">退出</button>
+          </nav>
+        </div>
+        <div class="row J_mainContent" id="content-main">
+          <iframe id="J_iframe" width="100%" height="100%" src="/admin/news" frameborder="0" data-id="index_v1.html" seamless></iframe>
+        </div>
+      </div>
+      <!--右侧部分结束-->
+    </div>
+
+    <!-- 全局js -->
+    <script src="/admin/js/jquery.min.js"></script>
+    <script src="/admin/js/bootstrap.min.js"></script>
+    <script src="/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/admin/js/plugins/layer/layer.min.js"></script>
+    <script src="/lib/js.cookie.js"></script>
+    <!-- 自定义js -->
+    <script src="/admin/js/hAdmin.js"></script>
+    <script type="text/javascript" src="/admin/js/index.js"></script>
+    <script>
+      function logOut(){
+        Cookies.remove('admin_user',{path:'/'});
+        location.reload();
+      }
+    </script>
+  </body>
+
+</html>

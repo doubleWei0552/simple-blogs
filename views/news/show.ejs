@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ./_header %>
+    <title><%= model.title %></title>
+  </head>
+  <body>
+    <% include ./_nav %>
+    <div class="news">
+      <div class="row">
+        <div class="col s12 m12">
+          <h3 class="news-title"></style><%= model.title %></h3>
+          <p class="content-desc">更新时间:<%= moment(model.created_at).format('YYYY-MM-DD HH:mm')  %>,浏览量:<%= model.views_count %>次</p>
+          <div class="content">
+            <%- model.content %>
+          </div>
+        </div>
+      </div>
+      <% include ./_footer %>
+  </body>
+</html>

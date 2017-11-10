@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../../layout/admin/header  %>
+    <title>新闻分类编辑</title>
+  </head>
+  <body class="gray-bg">
+    <div class="container wrapper wrapper-content animated fadeInRight">
+      <!-- bs3-panel:danger 生成一个面板 红色头部的 -->
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">资讯分类<%= isEditor?"编辑":"新增" %></h3>
+        </div>
+        <div class="panel-body">
+          <!-- bs3-form 生成一个表单 -->
+          <% if(isEditor){ %>
+            <form method="POST" action="/admin/news_type/editor/<%= model.id %>" role="form">
+            <% } else{ %>
+              <form method="POST" role="form">
+              <%} %>
+              <div class="form-group">
+                <label>名字</label>
+                <input name="name" type="text" value="<%= model.name %>" class="form-control" placeholder="请输入分类名字">
+              </div>
+              <div class="form-group">
+                <label>描述</label>
+                <textarea name="description" class="form-control" cols="30" rows="10"><%= model.description %></textarea>
+              </div>
+              <button type="submit" class="btn btn-block btn-primary">保存</button>
+              </form>
+        </div>
+      </div>
+    </div>
+    <% include ../../layout/admin/footer  %>
+  </body>
+</html>

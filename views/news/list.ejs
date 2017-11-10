@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./_header %>
+    <title>我的Blog联盟</title>
+</head>
+<body>
+  <% include ./_nav %>
+    <div class="news">
+      <div class="row grid" id="newsContainer">
+        <% list.forEach(function(item){ %>
+          <a href="/show?id=<%= item.id %>">
+            <div class="col s12 m4 grid-item">
+              <div class="card">
+                <div class="card-image">
+                  <img src="<%= item.img %>">
+                </div>
+                <div class="card-content">
+                  <span class="card-title"><%= item.title %></span>
+                  <p class="news-desc">
+                    <%= item.description %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <% }) %>
+      </div>
+    </div>
+    <!-- <a id="btnLoadMore" onclick="loadMore()" style="position:fixed;bottom:1rem;" class="loadmore waves-effect waves-light btn">加载更多</a> -->
+    <% include ./_footer %>
+      <script src="/lib/imagesloaded.pkgd.min.js"></script>
+      <script src="/lib/masonry.pkgd.min.js"></script>
+      <script>
+        var $grid = $('#newsContainer').masonry({ itemSelector: '.grid-item' });
+
+        var _page = 1; // 当前页码
+        var _pageCount = 1; // 总页数
+        var _isLoading = false; // 是否正在加载
+        function loadMore() {
+          if (_page > _pageCount) {
+            Materialize.toast('没有更多数据', 3000);
+            // $('#btnLoadMore').text('没有更多数据!');
+            return;
+          }
+          if (_isLoading) {
+            return;
+          }
+          _isLoading = true;
+          _page++;
+          $.getJSON('/api/v1/news', { page: _page }, function (res) {
+            // console.log(res)
+            _isLoading = false;
+            _pageCount = res.data.pageCount;
+            var strHtml = ''
+            res.data.list.forEach(function (item) {
+              strHtml += '<a href="/show?id=' + item._id + '">' +
+                '<div class="col s12 m4 grid-item">'
+                + '<div class="card">'
+                + '<div class="card-image">'
+                + '<img src="' + item.img + '">'
+                + '</div>'
+                + '<div class="card-content">'
+                + '<span class="card-title">' + item.title + '</span>'
+                + '<p class="news-desc">' + item.description + '</p>'
+                + '</div>'
+                + '</div>'
+                + '</div></a>';
+            })
+            var $items = $(strHtml);
+            $('#newsContainer').imagesLoaded(function () {
+              $grid.append($items).masonry('appended', $items).masonry('layout');
+            });
+          })
+        }
+        $('#navFixedContainer').append('<li><a  id="btnLoadMore" onclick="loadMore()" class="btn-floating blue"><i class="fa fa-arrow-down"></i></a></li>')
+      </script>
+</body>
+
+</html>

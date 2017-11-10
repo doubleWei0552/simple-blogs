@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../../layout/admin/header  %>
+    <title>博客信息</title>
+  </head>
+  <body class="gray-bg">
+    <div class="container wrapper wrapper-content animated fadeInRight">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">博客数据</h3>
+        </div>
+        <div class="panel-body">
+          <a class="btn btn-danger" href="/admin/news/add">新增</a>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>标题</th>
+                <th>分类</th>
+                <th>图片</th>
+                <th>标签</th>
+                <th>浏览量</th>
+                <th>描述</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% list.forEach(function(item,index){%>
+                <tr>
+                  <td><%= index+1 %></td>
+                  <td><a target="_blank" href="/show?id=<%= item.id %>"><%= item.title %></a></td>
+                  <td><%= item.news_type?item.news_type.name:'' %></td>
+                  <td><img style="width:60px;max-height:60px;" src="<%= item.img %>"/></td>
+                  <td><%= item.tags %></td>
+                  <td><%= item.views_count %></td>
+                  <td><%= item.description %></td>
+                  <td>
+                    <a href="/admin/news/editor?id=<%= item.id %>"><i class="btn btn-primary btn-sm fa fa-edit"></i></a>
+                    <a onclick="delOne('<%= item.id %>')"><i class="btn btn-danger btn-sm fa fa-remove"></i></a>
+                  </td>
+                </tr>
+              <%}) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <% const pageBaseUrl = '/admin/news' %>
+    <% include ../../layout/admin/paging %>
+    <% include ../../layout/admin/footer  %>
+    <form method="post" id="delForm" style="display:none;" action="/admin/news/delete">
+      <input type="text" name="id" id="delID">
+    </form>
+    <script>
+      function delOne(id){
+        confirm('是否删除选中的信息?',function(){
+          $('#delID').val(id);
+          $('#delForm').submit();
+        })
+      }
+    </script>
+  </body>
+</html>

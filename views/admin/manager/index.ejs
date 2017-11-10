@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../../layout/admin/header  %>
+    <title>管理员数据</title>
+  </head>
+  <body class="gray-bg">
+    <div class="container wrapper wrapper-content animated fadeInRight">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">管理员数据</h3>
+        </div>
+        <div class="panel-body">
+          <a class="btn btn-danger" href="/admin/manager/add">新增</a>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>用户名</th>
+                <th>姓名</th>
+                <th>手机号</th>
+                <th>邮箱</th>
+                <th>qq</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% list.forEach(function(item,index){%>
+                <tr>
+                  <td><%= index+1 %></td>
+                  <td><%= item.user_name %></td>
+                  <td><%= item.name %></td>
+                  <td><%= item.mobile %></td>
+                  <td><%= item.email %></td>
+                  <td><%= item.qq %></td>
+                  <td>
+                    <a href="/admin/manager/editor?id=<%= item.id %>"><i class="btn btn-primary btn-sm fa fa-edit"></i></a>
+                    <a onclick="delOne('<%= item.id %>')"><i class="btn btn-danger btn-sm fa fa-remove"></i></a>
+                  </td>
+                </tr>
+              <%}) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- 使用局部试图解决分页插件重复使用问题 -->
+    <% const pageBaseUrl = '/admin/manager' %>
+    <% include ../../layout/admin/paging %>
+    <% include ../../layout/admin/footer  %>
+    <form method="post" id="delForm" style="display:none;" action="/admin/manager/delete">
+      <input type="text" name="id" id="delID">
+    </form>
+    <script>
+      function delOne(id){
+        confirm('是否删除选中的信息?',function(){
+          $('#delID').val(id);
+          $('#delForm').submit();
+        })
+      }
+    </script>
+  </body>
+</html>

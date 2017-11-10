@@ -1,0 +1,45 @@
+.my-nav{
+  padding-left: 15px;
+}
+.card-image img{
+  max-height: 200px;
+  width: auto !important;
+  margin: 0 auto;
+}
+.news a{
+  color: #000;
+}
+.news .news-desc{
+  color: #999 !important;
+}
+.news-title{
+  text-align: center;
+  font-size: 2rem;
+}
+.news .content{
+  padding: 1rem;
+}
+.content h3{
+  font-size: 1.5rem;
+}
+.loadmore{
+  width: 50%;
+  display: block;
+  /* margin: 0 auto; */
+  position: fixed;
+  bottom: 1rem;
+  left: 25%;
+}
+.content img{
+  max-width: 100%;
+  padding: 3rem;
+}
+.content-desc{
+  color:#aaa;
+  font-size: 0.7rem;
+}
+#toast-container {
+  top: 50%;
+  right: 40%;
+  max-width: 86%;
+}

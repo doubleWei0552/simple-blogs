@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../../layout/admin/header  %>
+    <title>博客编辑</title>
+  </head>
+  <body class="gray-bg">
+    <div class="container wrapper wrapper-content animated fadeInRight">
+      <!-- bs3-panel:danger 生成一个面板 红色头部的 -->
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h3 class="panel-title">博客<%= isEditor?"编辑":"新增" %></h3>
+        </div>
+        <div class="panel-body">
+          <!-- bs3-form 生成一个表单 -->
+          <% if(isEditor){ %>
+            <form method="POST" action="/admin/news/editor/<%= model.id %>" role="form">
+            <%} else{%>
+              <form method="POST" role="form">
+              <%} %>
+              <div class="form-group">
+                <label>标题</label>
+                <input name="title" value="<%= model.title %>" type="text" class="form-control" placeholder="请输入新闻标题">
+              </div>
+              <div class="form-group">
+                <label>分类</label>
+                <select id="selTypes" name="news_type" class="form-control">
+                  <% types.forEach(function(item){%>
+                    <option value="<%= item.id %>"><%= item.name %></option>
+                  <%}) %>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>图片</label>
+                <img src="<%= model.img %>" onerror="this.src='/default.jpg'" id="imgCtrl" alt="图片" style="width:200px;max-height:200px;">
+                <input name="img" id="img" value="<%= model.img %>" type="hidden" class="form-control" placeholder="请上传图片">
+                <a href="javascript:void(0)" value="上传" id="uploadButton">上传</a>
+              </div>
+              <div class="form-group">
+                <label>标签</label>
+                <input name="tags" value="<%= model.tags %>" type="text" class="form-control" placeholder="请输入资讯标签,多个用|分割">
+              </div>
+              <div class="form-group">
+                <label>浏览量</label>
+                <input name="views_count" value="<%= model.views_count %>" type="text" class="form-control" placeholder="请输入浏览量">
+              </div>
+              <div class="form-group">
+                <label>描述</label>
+                <textarea name="description" class="form-control" cols="30" rows="5"><%= model.description %></textarea>
+              </div>
+              <div class="form-group">
+                <label>详情</label>
+                <textarea name="content" class="form-control" cols="30" rows="10"><%= model.content %></textarea>
+              </div>
+              <button type="submit" class="btn btn-block btn-primary">保存</button>
+              </form>
+        </div>
+      </div>
+    </div>
+    <% include ../../layout/admin/footer  %>
+    <script src="/kindeditor/kindeditor-all-min.js"></script>
+    <script>
+      KindEditor.ready(function(K) {
+        var editor1 = K.create('textarea[name="content"]',{
+          uploadJson:'/common/kindeditor/uploadImg' //处理文件上传的服务器地址
+        });
+        var uploadbutton = K.uploadbutton({
+          button : K('#uploadButton')[0],
+          fieldName : 'imgFile',
+          url : '/common/kindeditor/uploadImg',
+          afterUpload : function(data) {
+            if (data.error === 0) {
+              var url = data.url;
+              K('#img').val(url);
+              K('#imgCtrl').attr('src',url);
+            } else {
+              alert(data.message);
+            }
+          },
+          afterError : function(str) {
+            alert('自定义错误信息: ' + str);
+          }
+        });
+        uploadbutton.fileBox.change(function(e) {
+          uploadbutton.submit();
+        });
+        // 修改单独上传文件插件的样式
+        var upBtn = $('.ke-button').attr('class','');
+        upBtn.addClass('btn btn-danger btn-sm');
+        $('.ke-button-common').height('auto');
+        $('.ke-form').width('50px');
+      });
+      $(function(){
+        $('#selTypes').val('<%= model.news_type %>')
+      })
+    </script>
+  </body>
+</html>
